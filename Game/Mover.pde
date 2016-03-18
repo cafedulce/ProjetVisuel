@@ -37,19 +37,19 @@ popMatrix();
 void checkEdges() {
 if (location.x > plate/2) {
   location.x = plate/2;
-velocity.x = -velocity.x;
+velocity.x = -velocity.x*0.5;
 }
 if (location.x < -plate/2) {
   location.x = -plate/2;
-velocity.x = -velocity.x;
+velocity.x = -velocity.x*0.5;
 }
 if (location.z > plate/2) {
   location.z = plate/2;
-velocity.z = -velocity.z;
+velocity.z = -velocity.z*0.5;
 }
 if (location.z < -plate/2) {
   location.z = -plate/2;
-velocity.z = -velocity.z;
+velocity.z = -velocity.z*0.5;
 }
 }
 }
