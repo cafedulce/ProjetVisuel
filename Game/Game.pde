@@ -2,6 +2,7 @@ float rotationX = 0;
 float rotationZ = 0;
 float rotateSpeed = 0.4;
 int plate = 300;
+boolean run = true;
 Mover mover;
 void settings() {
   size (500, 500, P3D);
@@ -11,19 +12,20 @@ void setup() {
   mover = new Mover();
 }
 void draw() {
-  
-  background(0);
-  noStroke();
-  lights();
-  ambientLight(50,150,0);
-  translate(width/2, width/2, 0);
-  rotateX(rotationX);
-  rotateZ(rotationZ);
-  box (plate, 10, plate);
-  translate(0,-(5+16),0);
-  mover.update();
-  mover.display();
-  mover.checkEdges();
+  if (run == true){
+    background(0);
+    noStroke();
+    lights();
+    ambientLight(50,150,0);
+    translate(width/2, width/2, 0);
+    rotateX(rotationX);
+    rotateZ(rotationZ);
+    box (plate, 10, plate);
+    translate(0,-(5+16),0);
+    mover.update();
+    mover.display();
+    mover.checkEdges();
+    }
  
 }
 void mouseDragged() {
@@ -62,3 +64,13 @@ void mouseWheel (MouseEvent event) {
     }
   }
 }
+void keyPressed(){
+  if (keyCode == SHIFT){
+   run = false;
+  }
+}
+void keyReleased(){
+  run = true;
+}
+ 
+    
