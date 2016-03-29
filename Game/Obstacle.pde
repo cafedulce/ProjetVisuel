@@ -15,7 +15,7 @@ Obstacle(float cylinderBaseSize, float cylinderHeight, int cylinderResolution) {
 /**
 *Construit un cylindre
 */
-void SetObstacle() {
+void setObstacle() {
   float angle;
   float[] x = new float[cylinderResolution + 1];
   float[] y = new float[cylinderResolution + 1];

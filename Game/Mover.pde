@@ -52,4 +52,11 @@ if (location.z < -plate/2) {
 velocity.z = -velocity.z*0.5;
 }
 }
+
+void drawMover()
+{
+  mover.update();
+  mover.display();
+  mover.checkEdges();
+}
 }
