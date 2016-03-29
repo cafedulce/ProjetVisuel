@@ -4,12 +4,15 @@ float rotateSpeed = 0.4;
 int plate = 300;
 boolean run = true;
 Mover mover;
+Obstacle obstacle;
 void settings() {
   size (500, 500, P3D);
 }
 void setup() {
   noStroke();
   mover = new Mover();
+  obstacle = new Obstacle(50, 50, 40);
+  
 }
 void draw() {
   if (run == true){
