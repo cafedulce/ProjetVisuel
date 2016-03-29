@@ -63,13 +63,14 @@ void setObstacle() {
 /**
 *Dessine un cylindre
 */
-void drawObstacle() {
+void drawObstacle(float x, float y) {
   pushMatrix();
   translate(-plateLength/2, 0 , -plateLength/2);
   rotateX(PI/2);
-  translate(mouseX, mouseY, 0);
+  translate(x, y, 0);
   shape(openCylinder);
   shape(triangle);
   popMatrix();
+  
 }
 }

@@ -7,6 +7,7 @@ int sphereDiameter = 25;
 boolean run = true;
 Mover mover;
 Obstacle obstacle;
+ArrayList<PVector> positionObstacle = new ArrayList<PVector>();
 void settings() {
   size (500, 500, P3D);
 }
@@ -34,11 +35,18 @@ void draw() {
     box (plateLength, plateHeight, plateLength);
     translate(0,-(plateHeight/2 + sphereDiameter),0);
     mover.display();
+    for(int i = 0; i < positionObstacle.size() - 1; i++)
+    {
+      println(" "+positionObstacle.get(i)+" i :"+i+"\n");
+      obstacle.setObstacle();
+      obstacle.drawObstacle(positionObstacle.get(i).x, positionObstacle.get(i).y);
+      
+    }
     
-    obstacle.setObstacle();
-    obstacle.drawObstacle();
-   
     popMatrix();
+    
+    
+    
     }
 }
 
@@ -94,4 +102,12 @@ void keyReleased(){
   run = true;
 }
 
+void mouseClicked(){
+  if(run == false)
+ {
+     PVector position = new PVector(pmouseX, pmouseY,0);
+     positionObstacle.add(position);
+    
+ }
+}
     
