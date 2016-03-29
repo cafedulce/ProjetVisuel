@@ -65,7 +65,7 @@ void setObstacle() {
 */
 void drawObstacle(float x, float y) {
   pushMatrix();
-  translate(-plateLength/2, 0 , -plateLength/2);
+  translate(-plateLength/2, sphereRadius  , -plateLength/2);
   rotateX(PI/2);
   translate(x, y, 0);
   shape(openCylinder);

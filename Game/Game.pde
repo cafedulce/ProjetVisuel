@@ -3,7 +3,7 @@ float rotationZ = 0;
 float rotateSpeed = 0.4;
 int plateLength = 450;
 int plateHeight = 10;
-int sphereDiameter = 25;
+int sphereRadius = 25;
 boolean run = true;
 Mover mover;
 Obstacle obstacle;
@@ -24,29 +24,21 @@ void draw() {
     rotateX(rotationX);
     rotateZ(rotationZ);
     box (plateLength, plateHeight, plateLength);
-    translate(0,-(plateHeight/2 + sphereDiameter),0);
+    translate(0,-(plateHeight/2 + sphereRadius),0);
     mover.drawMover();
+    obstaclesDrawer();
     }
+    
     else if(run == false) {
     pushMatrix();
     camera(width/2, -300 ,-width/2, width/2,width/2,-width/2,0,0,1);
     drawBasics();
     translate(width/2, width/2, -width/2);
     box (plateLength, plateHeight, plateLength);
-    translate(0,-(plateHeight/2 + sphereDiameter),0);
+    translate(0,-(plateHeight/2 + sphereRadius),0);
     mover.display();
-    for(int i = 0; i < positionObstacle.size() - 1; i++)
-    {
-      println(" "+positionObstacle.get(i)+" i :"+i+"\n");
-      obstacle.setObstacle();
-      obstacle.drawObstacle(positionObstacle.get(i).x, positionObstacle.get(i).y);
-      
-    }
-    
+    obstaclesDrawer();
     popMatrix();
-    
-    
-    
     }
 }
 
@@ -110,4 +102,10 @@ void mouseClicked(){
     
  }
 }
-    
+void obstaclesDrawer(){
+  for(int i = 0; i < positionObstacle.size(); i++)
+    {
+      obstacle.setObstacle();
+      obstacle.drawObstacle(positionObstacle.get(i).x, positionObstacle.get(i).y); 
+    }
+}

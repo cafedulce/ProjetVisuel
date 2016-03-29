@@ -30,7 +30,7 @@ strokeWeight(2);
 fill(180);
 pushMatrix();
 translate(location.x,location.y,location.z);
-sphere(sphereDiameter);
+sphere(sphereRadius);
 popMatrix();
 }
 
