@@ -1,7 +1,9 @@
 float rotationX = 0;
 float rotationZ = 0;
 float rotateSpeed = 0.4;
-int plate = 450;
+int plateLength = 450;
+int plateHeight = 10;
+int sphereDiameter = 25;
 boolean run = true;
 Mover mover;
 Obstacle obstacle;
@@ -17,38 +19,35 @@ void setup() {
 void draw() {
   if (run == true){
     drawBasics();
+    translate(width/2, width/2, -width/2);
+    rotateX(rotationX);
+    rotateZ(rotationZ);
+    box (plateLength, plateHeight, plateLength);
+    translate(0,-(plateHeight/2 + sphereDiameter),0);
     mover.drawMover();
     }
     else if(run == false) {
     pushMatrix();
     camera(width/2, -300 ,-width/2, width/2,width/2,-width/2,0,0,1);
-    background(0);
-    noStroke();
-    lights();
-    ambientLight(50,150,0);
+    drawBasics();
     translate(width/2, width/2, -width/2);
-    box (plate, 10, plate);
-    translate(0,-(5+16),0);
+    box (plateLength, plateHeight, plateLength);
+    translate(0,-(plateHeight/2 + sphereDiameter),0);
     mover.display();
     
-   /* obstacle.setObstacle();
+    obstacle.setObstacle();
     obstacle.drawObstacle();
-   */
+   
     popMatrix();
     }
 }
 
 void drawBasics()
 {
-  background(0);
+    background(0);
     noStroke();
     lights();
     ambientLight(50,150,0);
-    translate(width/2, width/2, -width/2);
-    rotateX(rotationX);
-    rotateZ(rotationZ);
-    box (plate, 10, plate);
-    translate(0,-(5+16),0);
 }
 void mouseDragged() {
   float speed = PI/30;

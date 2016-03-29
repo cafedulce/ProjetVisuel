@@ -30,25 +30,25 @@ strokeWeight(2);
 fill(180);
 pushMatrix();
 translate(location.x,location.y,location.z);
-sphere(16);
+sphere(sphereDiameter);
 popMatrix();
 }
 
 void checkEdges() {
-if (location.x > plate/2) {
-  location.x = plate/2;
+if (location.x > plateLength/2) {
+  location.x = plateLength/2;
 velocity.x = -velocity.x*0.5;
 }
-if (location.x < -plate/2) {
-  location.x = -plate/2;
+if (location.x < -plateLength/2) {
+  location.x = -plateLength/2;
 velocity.x = -velocity.x*0.5;
 }
-if (location.z > plate/2) {
-  location.z = plate/2;
+if (location.z > plateLength/2) {
+  location.z = plateLength/2;
 velocity.z = -velocity.z*0.5;
 }
-if (location.z < -plate/2) {
-  location.z = -plate/2;
+if (location.z < -plateLength/2) {
+  location.z = -plateLength/2;
 velocity.z = -velocity.z*0.5;
 }
 }
