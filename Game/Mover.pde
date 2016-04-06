@@ -4,12 +4,14 @@ class Mover {
   float mu = 0.1;
   float frictionMagnitude = mu*normalForce;
 PVector location;
+
 PVector velocity;
 PVector friction;
 PVector grav = new PVector(0,0,0);
 Mover() {
 friction = new PVector(0, 0, 0);
 location = new PVector(0, 0, 0);
+
 velocity = new PVector(0, 0, 0);
 }
 void update() {
@@ -25,13 +27,12 @@ void update() {
   
 }
 void display() {
-stroke(120);
-strokeWeight(2);
-fill(180);
-pushMatrix();
-translate(location.x,location.y,location.z);
-sphere(sphereRadius);
-popMatrix();
+myGame.pushMatrix();
+myGame.translate(location.x,location.y,location.z);
+myGame.fill(244,98,0);
+myGame.sphere(sphereRadius);
+
+myGame.popMatrix();
 }
 
 void checkEdges() {
@@ -58,5 +59,32 @@ void drawMover()
   mover.update();
   mover.display();
   mover.checkEdges();
+}
+/*void checkCylinderCollision(){
+  for (int i = 0; i < obstacle.positionObstacle.size(); ++i){
+    if (location.dist(obstacle.positionObstacle.get(i)) < (sphereRadius + 50)){
+      velocity.sub(velocity);
+    }
+  }
+}*/
+void checkCylinderCollision() {
+  for(int i = 0; i < obstacle.positionObstacle.size(); i++)
+  {
+    float distance = PVector.dist(location, obstacle.positionObstacle.get(i));
+    float distanceMin = sphereRadius + obstacleRadius;
+    
+    if(distance <= distanceMin){
+      
+      PVector normal = PVector.sub(location, obstacle.positionObstacle.get(i)); 
+      location = PVector.add(obstacle.positionObstacle.get(i), normal);
+      //PVector normal = new PVector(0,0,0);  
+      //normal.x = location.x - (obstacle.positionObstacle.get(i).x);
+      //normal.z = location.z - (obstacle.positionObstacle.get(i).z);
+      normal.normalize();
+      float calcul = PVector.dot(normal, velocity);
+      velocity.sub(normal.mult(2*calcul));
+  
+    }
+  }
 }
 }

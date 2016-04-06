@@ -4,6 +4,7 @@ float cylinderHeight;
 int cylinderResolution;
 PShape openCylinder = new PShape();
 PShape triangle = new PShape();
+ArrayList<PVector> positionObstacle = new ArrayList<PVector>();
 /**
 *Constructeur d'Obstacle
 */
@@ -63,14 +64,20 @@ void setObstacle() {
 /**
 *Dessine un cylindre
 */
-void drawObstacle(float x, float y) {
-  pushMatrix();
-  translate(-plateLength/2, sphereRadius  , -plateLength/2);
-  rotateX(PI/2);
-  translate(x, y, 0);
-  shape(openCylinder);
-  shape(triangle);
-  popMatrix();
+void drawObstacle(float x, float y, float z) {
+  myGame.pushMatrix();
+  myGame.translate(x, y + sphereRadius, z);
+  myGame.rotateX(PI/2);
+  myGame.shape(openCylinder);
+  myGame.shape(triangle);
+  myGame.popMatrix();
   
+}
+void obstaclesDrawer(){
+  for(int i = 0; i < positionObstacle.size(); i++)
+    {
+      setObstacle();
+      drawObstacle(positionObstacle.get(i).x, positionObstacle.get(i).y, positionObstacle.get(i).z); 
+    }
 }
 }
