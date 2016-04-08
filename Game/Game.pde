@@ -1,12 +1,14 @@
 float rotationX = 0;
 float rotationZ = 0;
 float rotateSpeed = 0.4;
-int plateLength = 800;
+int plateLength = 600;
 int plateHeight = 10;
 int sphereRadius = 40;
 int obstacleRadius = 50;
 int obstacleHeight = 50;
 int obstacleRes = 40;
+int window = 700;
+
 
 boolean run = true;
 
@@ -17,12 +19,12 @@ PGraphics myGame;
 
 
 void settings() {
-  size (800, 700, P3D);
+  size (window, window, P3D);
   
 }
 void setup() {
-  bigRectangle = createGraphics(800, 200, P2D);
-  myGame = createGraphics(800, 500, P3D);
+  //bigRectangle = createGraphics(700, 200, P2D); etape suivante
+  myGame = createGraphics(window, window, P3D);
   noStroke();
   mover = new Mover();
   obstacle = new Obstacle(obstacleRadius, obstacleHeight, obstacleRes);
@@ -31,8 +33,8 @@ void setup() {
 void draw() {
   drawMyGame();
   image(myGame, 0, 0);
-  drawMySurface();
-  image(bigRectangle, 0, 500);
+  //drawMySurface();
+  //image(bigRectangle, 0, 500); etape suivante
 }
 
 void drawBasics()
@@ -90,10 +92,14 @@ void keyReleased(){
 void mouseClicked(){
   if(run == false)
  {
-     // on decale aussi de plateLength afin davoir les points dans les coord de "base"
-     PVector position = new PVector(mouseX - plateLength/2, 0  ,mouseY - plateLength/2); // on decale selon y de height/2 car l'origine se trouve "dans" la box
-     obstacle.positionObstacle.add(position);
-    
+     //float size = plateLength/2;
+     //float minBorne = window/2-size;
+     //float  maxBorne = window/2+size;
+     //if ((mouseX <= maxBorne && mouseX >= minBorne) && (mouseY <= maxBorne && mouseY >= minBorne)){
+       // on decale aussi de plateLength afin davoir les points dans les coord de "base"
+       PVector position = new PVector(mouseX - plateLength/2, 0  ,mouseY - plateLength/2); // on decale selon y de height/2 car l'origine se trouve "dans" la box
+       obstacle.positionObstacle.add(position);
+     
  }
 }
 
@@ -123,7 +129,7 @@ void drawMyGame(){
     myGame.translate(0,-(plateHeight/2 + sphereRadius),0);
     mover.drawMover();
     obstacle.obstaclesDrawer();
-    mover.checkCylinderCollision();
+    //mover.checkCylinderCollision();
     popMatrix();
     }
     
