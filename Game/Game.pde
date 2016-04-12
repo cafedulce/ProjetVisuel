@@ -1,13 +1,13 @@
 float rotationX = 0;
 float rotationZ = 0;
 float rotateSpeed = 0.4;
-int plateLength = 600;
+int plateLength = 500;
 int plateHeight = 10;
 int sphereRadius = 40;
 int obstacleRadius = 50;
 int obstacleHeight = 50;
 int obstacleRes = 40;
-int window = 700;
+int window = 2*plateLength;
 
 
 boolean run = true;
@@ -95,8 +95,10 @@ void keyReleased(){
   
 void mouseClicked(){
   if(run == false)
- {
-       PVector position = new PVector(mouseX - plateLength/2, 0  ,mouseY - plateLength/2); // on decale selon y de height/2 car l'origine se trouve "dans" la box
+ {   
+       PVector position = new PVector(mouseX - plateLength, 0  ,mouseY - plateLength); // on decale selon y de height/2 car l'origine se trouve "dans" la box
+       map(mouseX, -window/2, -plateLength/2, window/2, plateLength/2);
+       map(mouseY, -window/2, -plateLength/2, window/2, plateLength/2);
        obstacle.positionObstacle.add(position);   
  }
 }
@@ -138,7 +140,7 @@ void drawMyGame(){
     
     else if(run == false) {
     myGame.pushMatrix();
-    myGame.translate(width/2, width/2, -width/2); // on retranslate pour avoir le meme origine que pdt run
+    myGame.translate(width/2, width/2, 0); // on retranslate pour avoir le meme origine que pdt run
     myGame.rotateX(-PI/2);
     drawBasics();
     myGame.fill(34,162,136);
@@ -147,6 +149,7 @@ void drawMyGame(){
     mover.display();
 
     obstacle.obstaclesDrawer();
+    
     myGame.popMatrix();
     }
     myGame.endDraw();

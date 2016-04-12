@@ -77,6 +77,7 @@ void obstaclesDrawer(){
   for(int i = 0; i < positionObstacle.size(); i++)
     {
       setObstacle();
+      println("cylindre "+i+" x = "+positionObstacle.get(i).x+" \n");
       drawObstacle(positionObstacle.get(i).x, positionObstacle.get(i).y, positionObstacle.get(i).z); 
     }
 }
