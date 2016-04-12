@@ -16,6 +16,7 @@ Mover mover;
 Obstacle obstacle;
 PGraphics bigRectangle;
 PGraphics myGame;
+PGraphics topView;
 
 
 void settings() {
@@ -23,8 +24,9 @@ void settings() {
   
 }
 void setup() {
-  //bigRectangle = createGraphics(700, 200, P2D); etape suivante
-  myGame = createGraphics(window, window, P3D);
+  topView = createGraphics(180,180,P2D);
+  bigRectangle = createGraphics(window, 200, P2D); 
+  myGame = createGraphics(window, window-200, P3D);
   noStroke();
   mover = new Mover();
   obstacle = new Obstacle(obstacleRadius, obstacleHeight, obstacleRes);
@@ -33,8 +35,10 @@ void setup() {
 void draw() {
   drawMyGame();
   image(myGame, 0, 0);
-  //drawMySurface();
-  //image(bigRectangle, 0, 500); etape suivante
+  drawMySurface();
+  image(bigRectangle, 0, 500);
+  drawTopView();
+  image(topView, 10, 510);
 }
 
 void drawBasics()
@@ -92,14 +96,8 @@ void keyReleased(){
 void mouseClicked(){
   if(run == false)
  {
-     //float size = plateLength/2;
-     //float minBorne = window/2-size;
-     //float  maxBorne = window/2+size;
-     //if ((mouseX <= maxBorne && mouseX >= minBorne) && (mouseY <= maxBorne && mouseY >= minBorne)){
-       // on decale aussi de plateLength afin davoir les points dans les coord de "base"
        PVector position = new PVector(mouseX - plateLength/2, 0  ,mouseY - plateLength/2); // on decale selon y de height/2 car l'origine se trouve "dans" la box
-       obstacle.positionObstacle.add(position);
-     
+       obstacle.positionObstacle.add(position);   
  }
 }
 
@@ -107,7 +105,13 @@ void drawMySurface(){
   pushMatrix();
   bigRectangle.beginDraw();
   bigRectangle.background(120);
-  bigRectangle.ellipse(250, 50, 45, 25);
+  bigRectangle.endDraw();
+  popMatrix();
+}
+void drawTopView(){
+  pushMatrix();
+  bigRectangle.beginDraw();
+  bigRectangle.background(0);
   bigRectangle.endDraw();
   popMatrix();
 }
@@ -129,7 +133,6 @@ void drawMyGame(){
     myGame.translate(0,-(plateHeight/2 + sphereRadius),0);
     mover.drawMover();
     obstacle.obstaclesDrawer();
-    //mover.checkCylinderCollision();
     popMatrix();
     }
     
@@ -141,7 +144,6 @@ void drawMyGame(){
     myGame.fill(34,162,136);
     myGame.box (plateLength, plateHeight, plateLength);
 
-    //myGame.translate(0,-(plateHeight/2 + sphereRadius),0); // le translate uniquement pour dessiner la boule ...  cette ligne ne serte a rien en fait
     mover.display();
 
     obstacle.obstaclesDrawer();
