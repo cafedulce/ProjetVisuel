@@ -7,8 +7,9 @@ int sphereRadius = 40;
 int obstacleRadius = 50;
 int obstacleHeight = 50;
 int obstacleRes = 40;
-int window = 2*plateLength;
-
+int windowHeight = 700;
+int windowLength = 1100;
+int screenCut = 200;
 
 
 boolean run = true;
@@ -22,14 +23,15 @@ PGraphics scoreBoard;
 
 
 void settings() {
-  size (window, window, P3D);
+  size (windowLength, windowHeight, P3D);
   
 }
 void setup() {
   scoreBoard = createGraphics(150, 180, P2D);
   topView = createGraphics(180,180,P2D);
-  bigRectangle = createGraphics(window, window/4, P2D);
-  myGame = createGraphics(window, window, P3D);
+  myGame = createGraphics(windowLength, windowHeight-screenCut , P3D);
+  bigRectangle = createGraphics(windowLength, screenCut, P2D);
+
   noStroke();
   mover = new Mover();
   obstacle = new Obstacle(obstacleRadius, obstacleHeight, obstacleRes);
@@ -39,7 +41,7 @@ void draw() {
   drawMyGame();
   image(myGame, 0, 0);
   drawMySurface();
-  image(bigRectangle, 0, 600);
+  image(bigRectangle, 0, windowHeight-screenCut);
   drawTopView();
   image(topView, 10, 510);
 }
@@ -98,12 +100,18 @@ void keyReleased(){
   
 void mouseClicked(){
   if(run == false)
- {   
-       PVector position = new PVector(mouseX - plateLength, 0  ,mouseY - plateLength); // on decale selon y de height/2 car l'origine se trouve "dans" la box
-       map(mouseX, -window/2, -plateLength/2, window/2, plateLength/2);
-       map(mouseY, -window/2, -plateLength/2, window/2, plateLength/2);
-       obstacle.positionObstacle.add(position);   
- }
+ {     float off = windowLength/2 -plateLength/2;
+       if ((mouseX >= off)&&(mouseX <= (windowLength - off))){
+         if ((mouseY <= windowHeight-screenCut)){
+           
+           map(mouseX, 0, -plateLength/2, windowLength, plateLength/2);
+           map(mouseY, 0, -plateLength/2, windowHeight - screenCut, plateLength/2);
+           PVector position = new PVector(mouseX - windowLength/2, 0  ,mouseY - (windowHeight-screenCut)/2); // on decale selon y de height/2 car l'origine se trouve "dans" la box
+           obstacle.positionObstacle.add(position);
+         }
+       
+     }
+   }
 }
 
 void drawMySurface(){
@@ -127,7 +135,7 @@ void drawMyGame(){
   if (run == true){
     drawBasics();
     //myGame.camera(width/4, -150 ,width/2, width/2,width/2,-width/2,0,0,1);
-    myGame.translate(width/2, width/2, -width/2);
+    myGame.translate(windowLength/2, (windowHeight-screenCut)/2, -windowHeight/3);
     myGame.rotateX(rotationX);
     myGame.rotateZ(rotationZ);
     
@@ -143,7 +151,7 @@ void drawMyGame(){
     
     else if(run == false) {
     myGame.pushMatrix();
-    myGame.translate(width/2, width/2, 0); // on retranslate pour avoir le meme origine que pdt run
+    myGame.translate(windowLength/2, (windowHeight-screenCut)/2, 0); // on retranslate pour avoir le meme origine que pdt run
     myGame.rotateX(-PI/2);
     drawBasics();
     myGame.fill(34,162,136);
