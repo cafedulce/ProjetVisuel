@@ -28,8 +28,8 @@ void settings() {
 void setup() {
   scoreBoard = createGraphics(150, 180, P2D);
   topView = createGraphics(180,180,P2D);
-  bigRectangle = createGraphics(window, window/4, P2D); 
-  myGame = createGraphics(window, (3/4)*window, P3D);
+  bigRectangle = createGraphics(window, window/4, P2D);
+  myGame = createGraphics(window, window, P3D);
   noStroke();
   mover = new Mover();
   obstacle = new Obstacle(obstacleRadius, obstacleHeight, obstacleRes);
@@ -39,7 +39,7 @@ void draw() {
   drawMyGame();
   image(myGame, 0, 0);
   drawMySurface();
-  image(bigRectangle, 0, (3/4)*window);
+  image(bigRectangle, 0, 600);
   drawTopView();
   image(topView, 10, 510);
 }
