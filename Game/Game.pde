@@ -8,6 +8,7 @@ int obstacleRadius = 50;
 int obstacleHeight = 50;
 int obstacleRes = 40;
 int window = 2*plateLength;
+a
 
 
 boolean run = true;
