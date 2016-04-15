@@ -18,6 +18,7 @@ Obstacle obstacle;
 PGraphics bigRectangle;
 PGraphics myGame;
 PGraphics topView;
+PGraphics scoreBoard;
 
 
 void settings() {
@@ -25,9 +26,10 @@ void settings() {
   
 }
 void setup() {
+  scoreBoard = createGraphics(150, 180, P2D);
   topView = createGraphics(180,180,P2D);
-  bigRectangle = createGraphics(window, 200, P2D); 
-  myGame = createGraphics(window, window-200, P3D);
+  bigRectangle = createGraphics(window, window/4, P2D); 
+  myGame = createGraphics(window, (3/4)*window, P3D);
   noStroke();
   mover = new Mover();
   obstacle = new Obstacle(obstacleRadius, obstacleHeight, obstacleRes);
@@ -37,7 +39,7 @@ void draw() {
   drawMyGame();
   image(myGame, 0, 0);
   drawMySurface();
-  image(bigRectangle, 0, 500);
+  image(bigRectangle, 0, (3/4)*window);
   drawTopView();
   image(topView, 10, 510);
 }
