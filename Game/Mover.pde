@@ -3,6 +3,7 @@ class Mover {
   float normalForce = 1;
   float mu = 0.1;
   float frictionMagnitude = mu*normalForce;
+  float bouncingFactor = 1.0;
 PVector location;
 PVector velocity;
 PVector friction;
@@ -75,6 +76,7 @@ void checkCylinderCollision() {
       
       float calcul2 = PVector.dot(normal, velocity);
       velocity.sub(normal.mult(2*calcul2));
+      velocity.mult(bouncingFactor);
     }
   }
 }

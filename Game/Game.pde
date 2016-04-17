@@ -10,6 +10,7 @@ int obstacleRes = 40;
 int windowHeight = 700;
 int windowLength = 1100;
 int screenCut = 200;
+int topViewDim = 180;
 
 
 boolean run = true;
@@ -28,7 +29,7 @@ void settings() {
 }
 void setup() {
   scoreBoard = createGraphics(150, 180, P2D);
-  topView = createGraphics(180,180,P2D);
+  topView = createGraphics(topViewDim,topViewDim,P2D);
   myGame = createGraphics(windowLength, windowHeight-screenCut , P3D);
   bigRectangle = createGraphics(windowLength, screenCut, P2D);
 
@@ -42,8 +43,9 @@ void draw() {
   image(myGame, 0, 0);
   drawMySurface();
   image(bigRectangle, 0, windowHeight-screenCut);
+  int topViewOff = 10;
   drawTopView();
-  image(topView, 10, 510);
+  image(topView, topViewOff, (windowHeight-screenCut)+topViewOff);
 }
 
 void drawBasics()
@@ -123,9 +125,25 @@ void drawMySurface(){
 }
 void drawTopView(){
   pushMatrix();
-  bigRectangle.beginDraw();
-  bigRectangle.background(0);
-  bigRectangle.endDraw();
+  int rectangleSize = 160;
+  int offTop = 10;
+  float factor = (float)rectangleSize / (float)plateLength;
+  topView.beginDraw();
+  topView.background(10);
+  topView.translate (offTop,offTop);
+  topView.fill(34,162,176);
+  topView.rect(0,0,rectangleSize,rectangleSize);
+  topView.translate(topViewDim/2 - offTop, topViewDim/2 - offTop);
+  for (int i = 0; i < obstacle.positionObstacle.size() ; ++i){
+    topView.fill(100,100,0);
+    topView.ellipse( factor*obstacle.positionObstacle.get(i).x, factor*obstacle.positionObstacle.get(i).z, factor*obstacleRadius*2,factor*obstacleRadius*2);
+  }
+  pushMatrix();
+  topView.translate(factor*mover.location.x, factor*mover.location.z);
+  topView.fill(244,98,0);
+  topView.ellipse(0,0,(factor*sphereRadius)*2,(factor*sphereRadius)*2);
+  popMatrix();
+  topView.endDraw();
   popMatrix();
 }
 void drawMyGame(){
