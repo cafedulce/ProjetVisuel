@@ -3,7 +3,7 @@ class Mover {
   float normalForce = 1;
   float mu = 0.1;
   float frictionMagnitude = mu*normalForce;
-  float bouncingFactor = 1.0;
+  float bouncingFactor = 1.8;
 PVector location;
 PVector velocity;
 PVector friction;
@@ -37,18 +37,26 @@ void checkEdges() {
 if (location.x > plateLength/2) {
   location.x = plateLength/2;
 velocity.x = -velocity.x*0.5;
+lastScore = score;
+score = score - (velocity.mag()*0.01);
 }
 if (location.x < -plateLength/2) {
   location.x = -plateLength/2;
 velocity.x = -velocity.x*0.5;
+lastScore = score;
+score = score - (velocity.mag()*0.01);
 }
 if (location.z > plateLength/2) {
   location.z = plateLength/2;
 velocity.z = -velocity.z*0.5;
+lastScore = score;
+score = score - (velocity.mag()*0.01);
 }
 if (location.z < -plateLength/2) {
   location.z = -plateLength/2;
 velocity.z = -velocity.z*0.5;
+lastScore = score;
+score = score - (velocity.mag()*0.01);
 }
 }
 
@@ -77,6 +85,8 @@ void checkCylinderCollision() {
       float calcul2 = PVector.dot(normal, velocity);
       velocity.sub(normal.mult(2*calcul2));
       velocity.mult(bouncingFactor);
+      lastScore = score;
+      score = score + (velocity.mag()*0.01);
     }
   }
 }

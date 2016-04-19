@@ -11,6 +11,8 @@ int windowHeight = 700;
 int windowLength = 1100;
 int screenCut = 200;
 int topViewDim = 180;
+float score = 0;
+float lastScore = 0;
 
 
 boolean run = true;
@@ -46,6 +48,9 @@ void draw() {
   int topViewOff = 10;
   drawTopView();
   image(topView, topViewOff, (windowHeight-screenCut)+topViewOff);
+  int scoreBoardX = topViewOff + topViewDim + 10; 
+  drawScoreBoard();
+  image(scoreBoard, scoreBoardX, (windowHeight-screenCut)+topViewOff);
 }
 
 void drawBasics()
@@ -146,6 +151,17 @@ void drawTopView(){
   topView.endDraw();
   popMatrix();
 }
+
+void drawScoreBoard(){
+pushMatrix();
+scoreBoard.beginDraw();
+fill(0);
+//scoreBoard.background(255);
+scoreBoard.endDraw();
+popMatrix();
+text("\n\nTotal Score : "+score+"\n\n\n\nVelocity : "+mover.velocity.mag()+"\n\n\n\nLast Score : "+lastScore+"", topViewDim + 20, (windowHeight-screenCut)+10);
+}
+
 void drawMyGame(){
   pushMatrix();
   myGame.beginDraw();
