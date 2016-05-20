@@ -23,6 +23,8 @@ PGraphics bigRectangle;
 PGraphics myGame;
 PGraphics topView;
 PGraphics scoreBoard;
+PGraphics barChart; 
+HScrollbar hs;
 
 
 void settings() {
@@ -31,9 +33,11 @@ void settings() {
 }
 void setup() {
   scoreBoard = createGraphics(150, 180, P2D);
-  topView = createGraphics(topViewDim,topViewDim,P2D);
-  myGame = createGraphics(windowLength, windowHeight-screenCut , P3D);
-  bigRectangle = createGraphics(windowLength, screenCut, P2D);
+  topView = createGraphics(180,180,P2D);
+  myGame = createGraphics(1100, 900 , P3D);
+  bigRectangle = createGraphics(1100, 200, P2D);
+  barChart = createGraphics(685, 120, P2D);
+  hs = new HScrollbar(550,650,300,20);
 
   noStroke();
   mover = new Mover();
@@ -44,13 +48,15 @@ void draw() {
   drawMyGame();
   image(myGame, 0, 0);
   drawMySurface();
-  image(bigRectangle, 0, windowHeight-screenCut);
-  int topViewOff = 10;
+  image(bigRectangle, 0, 500);
   drawTopView();
-  image(topView, topViewOff, (windowHeight-screenCut)+topViewOff);
-  int scoreBoardX = topViewOff + topViewDim + 10; 
+  image(topView, 10, 510);
   drawScoreBoard();
-  image(scoreBoard, scoreBoardX, (windowHeight-screenCut)+topViewOff);
+  image(scoreBoard, 200, 510);
+  drawBarChart();
+  image(barChart, 360, 510);
+  hs.update();
+  hs.display();
 }
 
 void drawBasics()
@@ -61,6 +67,8 @@ void drawBasics()
     myGame.ambientLight(0,0,0);
 }
 void mouseDragged() {
+if(mouseY < 500)
+{
   float speed = PI/30;
   if ((mouseY - pmouseY)<0) {
     if (rotationX < PI/3) {
@@ -82,6 +90,7 @@ void mouseDragged() {
       rotationZ -= (speed)*rotateSpeed;
     }
   }
+}
 }
 void mouseWheel (MouseEvent event) {
   float e = event.getAmount();
@@ -162,6 +171,14 @@ popMatrix();
 text("\n\nTotal Score : "+score+"\n\n\n\nVelocity : "+mover.velocity.mag()+"\n\n\n\nLast Score : "+lastScore+"", topViewDim + 20, (windowHeight-screenCut)+10);
 }
 
+void drawBarChart()
+{
+  pushMatrix();
+  barChart.beginDraw();
+  scoreBoard.background(255);
+  barChart.endDraw();
+  popMatrix();
+}
 void drawMyGame(){
   pushMatrix();
   myGame.beginDraw();
