@@ -1,5 +1,4 @@
 import java.util.Collections;
-
 import processing.video.*;
 
 import java.util.ArrayList;
