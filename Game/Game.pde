@@ -25,13 +25,23 @@ PGraphics topView;
 PGraphics scoreBoard;
 PGraphics barChart; 
 HScrollbar hs;
+ImageProcessing image;
+Movie mov;
+PImage img;
 
 
 void settings() {
   size (windowLength, windowHeight, P3D);
-  
+
 }
 void setup() {
+  mov = new Movie (this, "/Users/patrik/Documents/GitHub/ProjetVisuel/Game/data/testvideo.mp4");
+  mov.loop();
+  img = mov.get();
+  mov.read();
+  image = new ImageProcessing(this);
+  image.pre_compute(image.tabSin, image.tabCos);
+   
   scoreBoard = createGraphics(150, 180, P2D);
   topView = createGraphics(180,180,P2D);
   myGame = createGraphics(1100, 900 , P3D);
@@ -45,6 +55,9 @@ void setup() {
  
 }
 void draw() {
+  image.process(img);
+  rotationX = image.angles.x;
+  rotationZ = image.angles.y;
   drawMyGame();
   image(myGame, 0, 0);
   drawMySurface();
@@ -57,6 +70,8 @@ void draw() {
   image(barChart, 360, 510);
   hs.update();
   hs.display();
+  mov.read();
+  img = mov.get();
 }
 
 void drawBasics()
