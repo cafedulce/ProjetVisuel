@@ -40,6 +40,7 @@ public void process(PImage genuine){
  sobel = sobel(int_tresh);
  hough(sobel, 4);
  TwoDThreeD rotation = new TwoDThreeD(genuine.width, genuine.height);
+ Quads.build(lines, genuine.width, genuine.height);
  angles = rotation.get3DRotations(Quads.sortCorners(lines));
 }
 
@@ -177,22 +178,17 @@ void hough(PImage edgeImg, int nLines) {
 choose_best_candidates(accumulator, minVotes, neighbourhood, bestCandidates);
 Collections.sort(bestCandidates, new HoughComparator(accumulator));
   
-  // a continuer
-
-  
 plot_the_lines(nLines, bestCandidates, lines, edgeImg);
 quad_build(lines, edgeImg);
 
 lines = getIntersections(lines); 
 
   //display the accumulator
-  PImage houghImg = createImage(rDim + 2, phiDim + 2, ALPHA);
+  /*PImage houghImg = createImage(rDim + 2, phiDim + 2, ALPHA);
   for (int i = 0; i < accumulator.length; i++) {
     houghImg.pixels[i] = color(min(255, accumulator[i]));
-  }
- //houghImg.resize(400, 400);
- //houghImg.updatePixels();
- //image(houghImg, 400,0);
+  }*/
+
 }
 
 ArrayList<PVector> getIntersections(List<PVector> lines){
@@ -324,9 +320,9 @@ void plot_the_lines(int nLines, ArrayList<Integer> bestCandidates, ArrayList<PVe
 }
 
 void quad_build(ArrayList<PVector> lines, PImage edgeImg) {
- //QuadGraph Quad = new QuadGraph();
-  Quads.build(lines, edgeImg.width, edgeImg.height);
-  List<int[]> quads = Quads.findCycles();
+  QuadGraph Quad = new QuadGraph();
+  Quad.build(lines, edgeImg.width, edgeImg.height);
+  List<int[]> quads = Quad.findCycles();
   
   
   for (int[] quad : quads) {
